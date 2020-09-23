@@ -4,8 +4,9 @@ import "./registerServiceWorker";
 import store from "./store";
 
 Vue.config.productionTip = false;
+require("@/assets/css/normalize.css");
 
 new Vue({
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
