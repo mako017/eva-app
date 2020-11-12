@@ -8,16 +8,19 @@
 			<p>Bitte nutzen Sie die Knöpfe unten um anzugeben, wie zufrieden Sie mit dieser Sitzung waren.</p>
 		</div>
 		<Control />
+		<Finish />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Control from "@/components/Main/Control.vue";
+import Finish from "@/components/Main/Finish.vue";
 
 @Component({
 	components: {
 		Control,
+		Finish,
 	},
 })
 export default class HelloWorld extends Vue {
