@@ -16,6 +16,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import Control from "@/components/Main/Control.vue";
 import Finish from "@/components/Main/Finish.vue";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import axios from "axios";
 
 @Component({
 	components: {
@@ -27,10 +29,31 @@ export default class HelloWorld extends Vue {
 	private infos = {
 		doz: "Prof. Dr. Sarah Dozent",
 		titel: "Anatomie",
+		lsf: 123456,
+		fp: "",
 	};
 	private finished = false;
 	sendData() {
 		this.finished = true;
+		axios.post(
+			"./php/handle.php",
+			JSON.stringify({
+				call: "transferData",
+				payload: this.infos,
+			}),
+		);
+	}
+	async getFingerprint() {
+		const fp = await FingerprintJS.load();
+		const result = await fp.get();
+		const visitorId = result.visitorId;
+		return visitorId;
+	}
+	mounted() {
+		console.log("Hello World");
+		this.getFingerprint().then(res => {
+			this.infos.fp = res;
+		});
 	}
 }
 </script>
