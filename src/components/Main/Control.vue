@@ -1,10 +1,10 @@
 <template>
 	<div class="root">
-		<button type="button" class="btn">++</button>
-		<button type="button" class="btn">+</button>
-		<button type="button" class="btn">o</button>
-		<button type="button" class="btn">-</button>
-		<button type="button" class="btn">--</button>
+		<button @click.once="sendData(1)" type="button" class="btn">++</button>
+		<button @click.once="sendData(2)" type="button" class="btn">+</button>
+		<button @click.once="sendData(3)" type="button" class="btn">o</button>
+		<button @click.once="sendData(4)" type="button" class="btn">-</button>
+		<button @click.once="sendData(5)" type="button" class="btn">--</button>
 	</div>
 </template>
 
@@ -12,7 +12,11 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class ControlPanel extends Vue {}
+export default class ControlPanel extends Vue {
+	sendData(value: number) {
+		this.$emit("sendData", value);
+	}
+}
 </script>
 
 <style scoped lang="scss">
