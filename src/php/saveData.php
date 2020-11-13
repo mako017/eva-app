@@ -1,6 +1,6 @@
 <?php
 
-public function writeData($mysqli, $data)
+function writeData($mysqli, $data)
 {
     $sql = $mysqli->prepare("INSERT INTO `Evabox_Daten` (`lsf`, `datum`, `zeit`, `wertung`) VALUES (?, ?, ?, ?)");
     $sql->bind_param("isss", $data->lsf, $data->datum, $data->zeit, $data->wertung);
