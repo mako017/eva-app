@@ -10,4 +10,5 @@ function writeData($mysqli, $data)
     } else {
             exit('0');
     }
+    $sql->close();
 }

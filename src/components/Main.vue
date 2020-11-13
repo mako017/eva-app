@@ -33,13 +33,16 @@ export default class HelloWorld extends Vue {
 		fp: "",
 	};
 	private finished = false;
-	sendData() {
+	sendData(val: number) {
 		this.finished = true;
 		axios.post(
 			"./php/handle.php",
 			JSON.stringify({
 				call: "transferData",
-				payload: this.infos,
+				payload: {
+					lsf: this.infos.lsf,
+					wertung: val,
+				},
 			}),
 		);
 	}

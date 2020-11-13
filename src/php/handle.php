@@ -10,6 +10,8 @@ $payload = $postData->payload;
 
 switch ($call) {
     case 'transferData':
+        $payload->datum = date("Y-m-d");
+        $payload->zeit = date("H:i:s:v");
         writeData($mysqli, $payload);
         break;
     
@@ -17,5 +19,3 @@ switch ($call) {
         # code...
         break;
 }
-
-$sql->close();
