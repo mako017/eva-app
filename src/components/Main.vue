@@ -42,6 +42,7 @@ export default class HelloWorld extends Vue {
 				payload: {
 					lsf: this.infos.lsf,
 					wertung: val,
+					fp: this.infos.fp,
 				},
 			}),
 		);
