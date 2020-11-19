@@ -3,25 +3,30 @@
 function checkuser($mysqli, $payload)
 {
     $newUser = true;
-    $sql = $mysqli->prepare("SELECT * FROM Evabox_Fingerprint WHERE lsf = ? AND fingerprint = ?");
-    $sql->bind_param("is", $data->lsf, $data->fp);
+    $sql = $mysqli->prepare("SELECT * FROM evabox_fingerprint WHERE lsf = ? AND fingerprint = ?");
+    $sql->bind_param("is", $payload->lsf, $payload->fp);
     $sql->execute();
-    if ($sql->affected_rows > 0) {
-            $newUser = false;
+    $sql->store_result();
+    if ($sql->num_rows > 0) {
+        $newUser = false;
+        return $newUser;
     }
-    if ($newUser) writeFingerprint($mysqli, $payload);
-    return $newUser;
-    $sql->close();
+    else{
+        $sql->close();
+        writeFingerprint($mysqli, $payload);
+        return $newUser;
+    }
 }
 
-function writeFingerprint($mysqli, $data)
+function writeFingerprint($mysqli, $payload)
 {
-    $sql = $mysqli->prepare("INSERT INTO `Evabox_Fingerprint` (`lsf`) VALUES (?)");
-    $sql->bind_param("i", $data->lsf);
+    $sql = $mysqli->prepare("INSERT INTO `evabox_fingerprint` (`lsf`, `fingerprint`) VALUES (?, ?)");
+    $sql->bind_param("is", $payload->lsf, $payload->fp);
     $sql->execute();
     if ($sql->affected_rows > 0) {
-            echo "1";
+        echo "1";
     } else {
-            exit('0');
+        exit('0');
     }
+    $sql->close();
 }
