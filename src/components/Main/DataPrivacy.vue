@@ -2,7 +2,7 @@
 	<div class="root">
 		<div class="head">
 			<h4 class="title">Datenschutz</h4>
-			<span class="close">×</span>
+			<span class="close" @click.once="closeNotice">×</span>
 		</div>
 		<span class="note">Mit Ihrer Teilnahme an der Evaluation stimmen Sie unseren <a href="">Datenschutzbedingungen</a> zu.</span>
 	</div>
@@ -12,7 +12,11 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class DataPrivacy extends Vue {}
+export default class DataPrivacy extends Vue {
+	closeNotice() {
+		this.$emit("closeNotice");
+	}
+}
 </script>
 
 <style scoped lang="scss">

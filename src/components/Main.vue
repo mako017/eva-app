@@ -9,7 +9,7 @@
 			<Control v-on:sendData="sendData" />
 		</div>
 		<Finish class="finish" v-else />
-		<DataPrivacy />
+		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>
 </template>
 
@@ -36,8 +36,10 @@ export default class HelloWorld extends Vue {
 		fp: "",
 	};
 	private finished = false;
+	private showNotice = true;
 	sendData(val: number) {
 		this.finished = true;
+		this.showNotice = false;
 		axios.post(
 			"./php/handle.php",
 			JSON.stringify({
