@@ -7,7 +7,7 @@
 		"copy": ".\\copy.sh",
 		"copy-xampp": ".\\xampp.sh",
 		"build": "vue-cli-service build && npm run copy",
-		"xampp": "npm run build && npm run copy-xampp",
+		"xampp": "vue-cli-service build && npm run copy-xampp",
 		"lint": "vue-cli-service lint",
 		"deploy": ".\\deploy.sh"
 	},
