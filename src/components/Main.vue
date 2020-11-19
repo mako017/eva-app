@@ -9,6 +9,7 @@
 			<Control v-on:sendData="sendData" />
 		</div>
 		<Finish class="finish" v-else />
+		<DataPrivacy />
 	</div>
 </template>
 
@@ -16,6 +17,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Control from "@/components/Main/Control.vue";
 import Finish from "@/components/Main/Finish.vue";
+import DataPrivacy from "@/components/Main/DataPrivacy.vue";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
 
@@ -23,6 +25,7 @@ import axios from "axios";
 	components: {
 		Control,
 		Finish,
+		DataPrivacy,
 	},
 })
 export default class HelloWorld extends Vue {
