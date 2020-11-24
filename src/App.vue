@@ -1,19 +1,24 @@
 <template>
 	<div id="app">
-		<Main />
+		<AdminArea v-if="admin" />
+		<Main v-else />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Main from "./components/Main.vue";
+import AdminArea from "./components/AdminArea.vue";
 
 @Component({
 	components: {
 		Main,
+		AdminArea,
 	},
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+	private admin = true;
+}
 </script>
 
 <style lang="scss">
