@@ -52,11 +52,16 @@ function addTime($time, $minutes)
 	return $newTime;
 }
 
-function checkCourseCount($checkedArray)
+/**
+ * This function tests whether a course array consists of 1 or more entries.
+ * @param Arr An array of courses
+ * @return checkedCourse One single course object
+ */
+function checkCourseCount($Arr)
 {
 	$checkedCourse = (object) [];
-	if (count($checkedArray) === 1) {
-		$checkedCourse = $checkedArray[0];
+	if (count($Arr) === 1) {
+		$checkedCourse = $Arr[0];
 	}
 	return $checkedCourse;
 }
