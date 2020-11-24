@@ -37,6 +37,7 @@ export default class HelloWorld extends Vue {
 	};
 	private finished = false;
 	private showNotice = true;
+	private noCourse = true;
 	sendData(val: number) {
 		this.finished = true;
 		this.showNotice = false;
@@ -58,11 +59,49 @@ export default class HelloWorld extends Vue {
 		const visitorId = result.visitorId;
 		return visitorId;
 	}
+	getCourseinfo() {
+		let newInfos = {
+			exists: false,
+			doz: "",
+			titel: "",
+			lsf: "",
+		};
+		const URLParams = this.handleURL();
+		axios
+			.post(
+				"./php/handle.php",
+				JSON.stringify({
+					call: "requestCourse",
+					payload: {
+						lsf: URLParams.lsf,
+						location: URLParams.loc,
+					},
+				}),
+			)
+			.then(response => {
+				newInfos = response.data;
+				this.infos = Object.assign(this.infos, newInfos);
+				console.log(this.infos);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+	handleURL(): { lsf: string | null; loc: string | null } {
+		const paramString = window.location.search;
+		const parameters = new URLSearchParams(paramString);
+		const URLParams = {
+			lsf: parameters.get("l") ? parameters.get("l") : "NaN",
+			loc: parameters.get("r") ? parameters.get("r") : "NaN",
+		};
+		return URLParams;
+	}
 	mounted() {
 		console.log("Hello World");
 		this.getFingerprint().then(res => {
 			this.infos.fp = res;
 		});
+		this.getCourseinfo();
 	}
 }
 </script>
