@@ -29,6 +29,12 @@ function requestCourse($mysqli, $payload)
 	return $courseinfo;
 }
 
+/**
+ * Takes an array of courses and checks which is being held
+ * @param array $courseInfo An array containing different courses from the same day and course number
+ * @param string $time The current time of format H:i:s
+ * @return array Returns an array containing all courses that are being held at the moment
+ */
 function checkCourseTime($courseInfo, $time)
 {
 	$checkedArray = [];
@@ -42,9 +48,9 @@ function checkCourseTime($courseInfo, $time)
 
 /**
  * This function adds a number of minutes to a time string
- * @param time A string of format H:i:s
- * @param minutes Any positive integer
- * @return date
+ * @param string $time A string of format H:i:s
+ * @param integer $minutes Any positive integer
+ * @return string
  */
 function addTime($time, $minutes)
 {
@@ -54,8 +60,8 @@ function addTime($time, $minutes)
 
 /**
  * This function tests whether a course array consists of 1 or more entries.
- * @param Arr An array of courses
- * @return checkedCourse One single course object
+ * @param array $Arr An array of courses
+ * @return object
  */
 function checkCourseCount($Arr)
 {
