@@ -36,8 +36,20 @@ function checkCourseTime($courseInfo, $time)
 		if ($course->von < $time && $course->bis > $time) {
 			$checkedArray[] = $course;
 		}
-		return $checkedArray;
 	}
+	return $checkedArray;
+}
+
+/**
+ * This function adds a number of minutes to a time string
+ * @param time A string of format H:i:s
+ * @param minutes Any positive integer
+ * @return date
+ */
+function addTime($time, $minutes)
+{
+	$newTime = date("H:i:s", strtotime("+" . $minutes . " minutes", strtotime($time)));
+	return $newTime;
 }
 
 function checkCourseCount($checkedArray)
