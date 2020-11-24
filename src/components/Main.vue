@@ -1,6 +1,6 @@
 <template>
 	<div class="main">
-		<Evaluation v-on:sendData="sendData" v-if="!finished" />
+		<Evaluation :infos="infos" v-on:sendData="sendData" v-if="!finished" />
 		<Finish class="finish" v-else />
 		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>
@@ -25,6 +25,7 @@ export default class HelloWorld extends Vue {
 	private infos = {
 		doz: "Prof. Dr. Sarah Dozent",
 		titel: "Anatomie",
+		session: "Herz",
 		lsf: 123456,
 		fp: "",
 	};

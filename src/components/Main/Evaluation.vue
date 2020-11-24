@@ -1,15 +1,18 @@
 <template>
 	<div class="root">
 		<h1>Eva App</h1>
-		<span>Dozent:</span><br />
-		<span>Titel: </span>
+		<span>Dozent: {{ infos.doz }}</span
+		><br />
+		<span>Veranstaltung: {{ infos.titel }}</span
+		><br />
+		<span>Sitzung: {{ infos.session }}</span>
 		<p>Bitte nutzen Sie die Knöpfe unten um anzugeben, wie zufrieden Sie mit dieser Sitzung waren.</p>
 		<Control v-on:sendData="sendData" />
 	</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import Control from "@/components/Main/Control.vue";
 
 @Component({
@@ -18,6 +21,8 @@ import Control from "@/components/Main/Control.vue";
 	},
 })
 export default class Evaluation extends Vue {
+	@Prop()
+	infos: any;
 	sendData(value: number) {
 		this.$emit("sendData", value);
 	}
