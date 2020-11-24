@@ -1,6 +1,6 @@
 <template>
 	<div class="main">
-		<Evaluation v-if="!finished" />
+		<Evaluation v-on:sendData="sendData" v-if="!finished" />
 		<Finish class="finish" v-else />
 		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>

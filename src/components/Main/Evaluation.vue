@@ -17,7 +17,11 @@ import Control from "@/components/Main/Control.vue";
 		Control,
 	},
 })
-export default class Evaluation extends Vue {}
+export default class Evaluation extends Vue {
+	sendData(value: number) {
+		this.$emit("sendData", value);
+	}
+}
 </script>
 
 <style scoped lang="scss">
