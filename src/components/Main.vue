@@ -1,13 +1,6 @@
 <template>
 	<div class="main">
-		<div class="head" v-if="!finished">
-			<h1>Eva App</h1>
-			<span>Dozent: {{ infos.doz }}</span
-			><br />
-			<span>Titel: {{ infos.titel }}</span>
-			<p>Bitte nutzen Sie die Knöpfe unten um anzugeben, wie zufrieden Sie mit dieser Sitzung waren.</p>
-			<Control v-on:sendData="sendData" />
-		</div>
+		<Evaluation v-if="!finished" />
 		<Finish class="finish" v-else />
 		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>
@@ -15,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Control from "@/components/Main/Control.vue";
+import Evaluation from "@/components/Main/Evaluation.vue";
 import Finish from "@/components/Main/Finish.vue";
 import DataPrivacy from "@/components/Main/DataPrivacy.vue";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
@@ -23,7 +16,7 @@ import axios from "axios";
 
 @Component({
 	components: {
-		Control,
+		Evaluation,
 		Finish,
 		DataPrivacy,
 	},
