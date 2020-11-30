@@ -28,6 +28,39 @@ function requestCourse($mysqli, $payload)
 	}
 	return $courseinfo;
 }
+/**
+ * Takes a mysqli connection and a payload and enters a new line into the database
+ * @param mysqli $mysqli A mysqli connection
+ * @param object $courses An array containing all courses that need to be appended
+ * @return array An array containing which course was entered correctly
+ */
+function insertCourse($mysqli, $courses)
+{
+	$success = [];
+	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`, `opt_link`) 
+	VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?')");
+	foreach ($courses as $course) {
+		$sql->bind_param(
+			"issssssss",
+			$course->lsf,
+			$course->titel,
+			$course->datum,
+			$course->raum,
+			$course->von,
+			$course->bis,
+			$course->sitzung,
+			$course->dozent,
+			$course->opt_link,
+		);
+		$sql->execute();
+		if ($sql->affected_rows > 0) {
+			$success[] = 1;
+		} else {
+			$success[] = 0;
+		}
+	}
+	$sql->close();
+}
 
 /**
  * Takes an array of courses and checks which is being held

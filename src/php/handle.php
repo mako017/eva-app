@@ -27,6 +27,10 @@ switch ($call) {
 		$courseInfo = checkCourseCount($courseInfo);
 		echo json_encode($courseInfo);
 		break;
+	case "insertCourse":
+		$updatedCourses = insertCourse($mysqli, $payload);
+		echo json_encode($updatedCourses);
+		break;
 	default:
 		# code...
 		break;
