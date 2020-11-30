@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import CourseAdmin from "@/components/AdminArea/CourseAdmin.vue";
-import DataExport from "@/components/AdminArea/CourseAdmin.vue";
+import DataExport from "@/components/AdminArea/DataExport.vue";
 
 @Component({
 	components: {
