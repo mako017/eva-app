@@ -37,29 +37,32 @@ function requestCourse($mysqli, $payload)
 function insertCourse($mysqli, $courses)
 {
 	$success = [];
-	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`, `opt_link`) 
-	VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?')");
+	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 	foreach ($courses as $course) {
-		$sql->bind_param(
-			"issssssss",
-			$course->lsf,
-			$course->titel,
-			$course->datum,
-			$course->raum,
-			$course->von,
-			$course->bis,
-			$course->sitzung,
-			$course->dozent,
-			$course->opt_link,
-		);
-		$sql->execute();
-		if ($sql->affected_rows > 0) {
-			$success[] = 1;
-		} else {
-			$success[] = 0;
+		foreach ($course->singleCourses as $sess) {
+			$sql->bind_param(
+				"isssssss",
+				$course->lsf,
+				$course->titel,
+				$sess->datum,
+				$sess->raum,
+				$sess->von,
+				$sess->bis,
+				$sess->sitzung,
+				$sess->dozent
+				// $course->opt_link,
+			);
+			$sql->execute();
+			if ($sql->affected_rows > 0) {
+				$success[] = 1;
+			} else {
+				$success[] = 0;
+			}
 		}
 	}
 	$sql->close();
+	return $success;
 }
 
 /**
