@@ -19,6 +19,9 @@ switch ($call) {
 			writeData($mysqli, $payload);
 		}
 		break;
+	case "requestAllCourses":
+		echo json_encode(requestAllCourses($mysqli));
+		break;
 	case "requestCourse":
 		$payload->datum = date("Y-m-d");
 		$time = date("H:i:s");

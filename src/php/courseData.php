@@ -1,5 +1,47 @@
 <?php
 
+/**
+ * This function is called to get all courses from the database
+ * @param mysqli $mysqli A mysqli connection
+ * @return array An array containing all courses
+ */
+function requestAllCourses($mysqli)
+{
+	$courses = [];
+	$sql = $mysqli->prepare("SELECT * FROM `evabox_plan`");
+	$sql->execute();
+	$result = $sql->get_result();
+	if ($result->num_rows <= 0) {
+		$courses[] = (object) [
+			"Counter" => "NaN",
+			"lsf" => "NaN",
+			"titel" => "NaN",
+			"datum" => "NaN",
+			"raum" => "NaN",
+			"von" => "NaN",
+			"bis" => "NaN",
+			"sitzung" => "NaN",
+			"dozent" => "NaN",
+		];
+
+	} else {
+		while ($row = $result->fetch_assoc()) {
+			$courses[] = (object) [
+				"Counter" => $row["Counter"],
+				"lsf" => $row["lsf"],
+				"titel" => $row["titel"],
+				"datum" => $row["datum"],
+				"raum" => $row["raum"],
+				"von" => $row["von"],
+				"bis" => $row["bis"],
+				"sitzung" => $row["sitzung"],
+				"dozent" => $row["dozent"],
+			];
+		}
+	}
+	return $courses;
+}
+
 function requestCourse($mysqli, $payload)
 {
 	$courseinfo = [];
