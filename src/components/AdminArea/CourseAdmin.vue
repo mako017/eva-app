@@ -18,7 +18,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import CourseTable from "@/components/AdminArea/CourseTable.vue";
 import { courseContainer } from "@/components/models.ts";
-import { saveCourses } from "@/assets/ts/courses.ts";
+import { saveCourses, requestCourses } from "@/assets/ts/courses.ts";
 
 @Component({
 	components: { CourseTable },
@@ -60,6 +60,9 @@ export default class CourseAdmin extends Vue {
 			titel: this.newCourse.titel,
 			singleCourses: [],
 		});
+	}
+	mounted() {
+		requestCourses();
 	}
 }
 </script>
