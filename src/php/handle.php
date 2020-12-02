@@ -8,7 +8,7 @@ require_once "courseData.php";
 $postData = json_decode(file_get_contents("php://input"));
 $validuser = true;
 $call = $postData->call;
-$payload = $postData->payload;
+$payload = isset($postData->payload) ? $postData->payload : 0;
 
 switch ($call) {
 	case "transferData":
