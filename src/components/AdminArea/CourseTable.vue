@@ -74,6 +74,7 @@ export default class CourseTable extends Vue {
 	}
 	addSession() {
 		this.course.singleCourses.push({
+			id: -1,
 			datum: this.today,
 			raum: "",
 			von: "00:00",

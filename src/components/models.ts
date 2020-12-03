@@ -1,4 +1,5 @@
 export interface singleCourse {
+	id: number;
 	datum: string;
 	raum: string;
 	von: string;
@@ -8,7 +9,6 @@ export interface singleCourse {
 }
 
 export interface courseContainer {
-	id: number;
 	lsf: number;
 	titel: string;
 	singleCourses: Array<singleCourse>;

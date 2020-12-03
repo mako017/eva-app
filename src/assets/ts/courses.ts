@@ -3,6 +3,7 @@ import { singleCourse, courseContainer, dbCourse } from "@/components/models.ts"
 
 function initSingleCourse(course: dbCourse): singleCourse {
 	return {
+		id: course.Counter,
 		datum: course.datum,
 		raum: course.raum,
 		von: course.von,
@@ -14,7 +15,6 @@ function initSingleCourse(course: dbCourse): singleCourse {
 
 function initCourseContainer(course: dbCourse): courseContainer {
 	return {
-		id: course.Counter,
 		lsf: course.lsf,
 		titel: course.titel,
 		singleCourses: [initSingleCourse(course)],

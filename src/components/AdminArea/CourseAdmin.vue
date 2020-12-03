@@ -36,7 +36,6 @@ export default class CourseAdmin extends Vue {
 	};
 	addCourse() {
 		this.courses.push({
-			id: this.courses.length > 0 ? this.courses[this.courses.length - 1].id + 1 : 1,
 			lsf: +this.newCourse.lsf,
 			titel: this.newCourse.titel,
 			singleCourses: [],
