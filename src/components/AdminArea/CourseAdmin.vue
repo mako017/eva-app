@@ -9,7 +9,7 @@
 			</i>
 		</div>
 		<div class="controlPanel">
-			<button @click="saveCourses(courses)">Save Courses</button>
+			<button @click="_saveCourses">Save Courses</button>
 		</div>
 	</div>
 </template>
@@ -18,7 +18,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import CourseTable from "@/components/AdminArea/CourseTable.vue";
 import { courseContainer } from "@/components/models.ts";
-import { saveCourses, requestCourses } from "@/assets/ts/courses.ts";
+import { saveCourses, getAllCourses } from "@/assets/ts/courses.ts";
 
 @Component({
 	components: { CourseTable },
@@ -61,8 +61,11 @@ export default class CourseAdmin extends Vue {
 			singleCourses: [],
 		});
 	}
-	mounted() {
-		requestCourses();
+	_saveCourses() {
+		saveCourses(this.courses);
+	}
+	async mounted() {
+		await getAllCourses().then(response => (this.courses = response));
 	}
 }
 </script>
