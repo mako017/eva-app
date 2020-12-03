@@ -28,31 +28,7 @@ export default class CourseAdmin extends Vue {
 		lsf: "",
 		titel: "",
 	};
-	courses: Array<courseContainer> = [
-		{
-			id: 1,
-			lsf: 123456,
-			titel: "Anatomie",
-			singleCourses: [
-				{
-					datum: "2020-11-30",
-					raum: "09 GYN",
-					von: "10:15",
-					bis: "11:45",
-					sitzung: "Herz I",
-					dozent: "Prof. Dr. Kardio",
-				},
-				{
-					datum: "2020-12-07",
-					raum: "09 GYN",
-					von: "10:15",
-					bis: "11:45",
-					sitzung: "Herz II",
-					dozent: "Prof. Dr. Kardio",
-				},
-			],
-		},
-	];
+	courses: Array<courseContainer> = [];
 	addCourse() {
 		this.courses.push({
 			id: this.courses.length > 0 ? this.courses[this.courses.length - 1].id + 1 : 1,
