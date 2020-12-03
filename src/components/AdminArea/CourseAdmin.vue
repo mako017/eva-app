@@ -29,6 +29,11 @@ export default class CourseAdmin extends Vue {
 		titel: "",
 	};
 	courses: Array<courseContainer> = [];
+	changes = {
+		create: [],
+		update: [],
+		remove: [],
+	};
 	addCourse() {
 		this.courses.push({
 			id: this.courses.length > 0 ? this.courses[this.courses.length - 1].id + 1 : 1,
