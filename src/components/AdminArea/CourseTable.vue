@@ -57,11 +57,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { courseContainer } from "@/components/models.ts";
+import { changes, courseContainer } from "@/components/models.ts";
+import { initdbCourse, handleChange } from "@/assets/ts/courses.ts";
 
 @Component
 export default class CourseTable extends Vue {
 	@Prop() course!: courseContainer;
+	@Prop() changes!: changes;
 	private expanded = true;
 	removeSession(pos: number) {
 		this.course.singleCourses.splice(pos, 1);
@@ -73,15 +75,18 @@ export default class CourseTable extends Vue {
 		return now.toISOString().split("T")[0];
 	}
 	addSession() {
-		this.course.singleCourses.push({
-			id: -1,
+		this.changes.changeID += 1;
+		const newSession = {
+			id: this.changes.changeID,
 			datum: this.today,
 			raum: "",
 			von: "00:00",
 			bis: "00:00",
 			sitzung: "",
 			dozent: "",
-		});
+		};
+		this.course.singleCourses.push(newSession);
+		handleChange(this.changes, initdbCourse(this.course, newSession), "create");
 	}
 	expand() {
 		this.expanded = !this.expanded;
