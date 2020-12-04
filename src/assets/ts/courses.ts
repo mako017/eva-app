@@ -158,10 +158,10 @@ export function handleChange(changes: changes, dbCourse: dbCourse, type: "create
 			createChange(changes, changes.changeID, dbCourse);
 			break;
 		case "update":
-			updateChange(changes, changes.changeID, dbCourse);
+			updateChange(changes, dbCourse.Counter, dbCourse);
 			break;
 		case "remove":
-			removeChange(changes, changes.changeID, dbCourse);
+			removeChange(changes, dbCourse.Counter, dbCourse);
 			break;
 		default:
 			console.log("Invalid call to handleChange()");

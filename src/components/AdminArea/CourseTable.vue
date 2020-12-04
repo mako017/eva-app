@@ -23,12 +23,12 @@
 				<tr v-for="(session, id) in course.singleCourses" :key="id">
 					<td>{{ course.lsf }}</td>
 					<td>{{ course.titel }}</td>
-					<td><input type="date" v-model="session.datum" /></td>
-					<td><input type="text" maxlength="8" v-model="session.raum" /></td>
-					<td><input type="time" v-model="session.von" /></td>
-					<td><input type="time" v-model="session.bis" /></td>
-					<td><input type="text" v-model="session.sitzung" /></td>
-					<td><input type="text" v-model="session.dozent" /></td>
+					<td><input @change="updateSession(id)" type="date" v-model="session.datum" /></td>
+					<td><input @change="updateSession(id)" type="text" maxlength="8" v-model="session.raum" /></td>
+					<td><input @change="updateSession(id)" type="time" v-model="session.von" /></td>
+					<td><input @change="updateSession(id)" type="time" v-model="session.bis" /></td>
+					<td><input @change="updateSession(id)" type="text" v-model="session.sitzung" /></td>
+					<td><input @change="updateSession(id)" type="text" v-model="session.dozent" /></td>
 					<td>
 						<i class="material-icons" @click="removeSession(id)">
 							remove_circle_outline
@@ -87,6 +87,9 @@ export default class CourseTable extends Vue {
 		};
 		this.course.singleCourses.push(newSession);
 		handleChange(this.changes, initdbCourse(this.course, newSession), "create");
+	}
+	updateSession(id: number) {
+		handleChange(this.changes, initdbCourse(this.course, this.course.singleCourses[id]), "update");
 	}
 	expand() {
 		this.expanded = !this.expanded;
