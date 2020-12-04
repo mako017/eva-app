@@ -84,7 +84,9 @@ function sortCourses(courses: Array<dbCourse>) {
 
 	return sortedArrays;
 }
-
+/**
+ * This wrapper function requests all courses from the database and converts them into courseContainer format
+ */
 export async function getAllCourses(): Promise<Array<courseContainer>> {
 	let allCourses: Array<courseContainer> = [];
 	let dbCourses: Array<dbCourse> = [];
@@ -92,7 +94,10 @@ export async function getAllCourses(): Promise<Array<courseContainer>> {
 	allCourses = sortCourses(dbCourses);
 	return allCourses;
 }
-
+/**
+ * This function gets the highest id (Counter) from an Array of courseContainers
+ * @param courses An Array containing all courses in courseContainer format
+ */
 export function highestID(courses: Array<courseContainer>) {
 	let hID = 0;
 	courses.forEach(element => {
