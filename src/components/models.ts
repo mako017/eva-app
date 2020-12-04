@@ -25,3 +25,9 @@ export interface dbCourse {
 	von: string;
 	bis: string;
 }
+
+export interface changes {
+	create: Array<{ id: number; dbCourse: dbCourse }>;
+	update: Array<{ id: number; dbCourse: dbCourse }>;
+	remove: Array<{ id: number; dbCourse: dbCourse }>;
+}
