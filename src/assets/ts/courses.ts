@@ -75,7 +75,6 @@ function sortCourses(courses: Array<dbCourse>) {
 	courses.forEach(session => {
 		if (sortedArrays.length === 0) {
 			sortedArrays.push(initCourseContainer(session));
-			console.log("Course created");
 		} else {
 			const index = sortedArrays.findIndex(el => el.lsf === session.lsf);
 			if (index === -1) sortedArrays.push(initCourseContainer(session));
