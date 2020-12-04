@@ -66,6 +66,7 @@ export default class CourseTable extends Vue {
 	@Prop() changes!: changes;
 	private expanded = true;
 	removeSession(pos: number) {
+		handleChange(this.changes, initdbCourse(this.course, this.course.singleCourses[pos]), "remove");
 		this.course.singleCourses.splice(pos, 1);
 	}
 	get today() {

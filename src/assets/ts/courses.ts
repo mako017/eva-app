@@ -128,8 +128,8 @@ function removeChange(changes: changes, id: number, dbCourse: dbCourse): void {
 	}
 	if (isChanged !== -1) {
 		changes.update.splice(isCreated, 1);
-		changes.remove.push({ id, dbCourse });
 	}
+	changes.remove.push({ id, dbCourse });
 }
 /**
  * This function makes sure that deletions are prepared for being sent to the server if the course was not created in this session.
@@ -148,7 +148,6 @@ function updateChange(changes: changes, id: number, dbCourse: dbCourse): void {
 /**
  * A wrapper function to handle CRD operations
  * @param changes The changes object that contains all session that need to be changed in the database
- * @param id The unique id of a change
  * @param dbCourse The course information that is to be updated
  * @param type The type of change that needs to be applied to the database. Either create, update, or remove an entry
  */
