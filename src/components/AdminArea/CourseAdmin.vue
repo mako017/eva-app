@@ -18,7 +18,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import CourseTable from "@/components/AdminArea/CourseTable.vue";
 import { changes, courseContainer } from "@/components/models.ts";
-import { saveCourses, getAllCourses } from "@/assets/ts/courses.ts";
+import { saveCourses, getAllCourses, highestID } from "@/assets/ts/courses.ts";
 
 @Component({
 	components: { CourseTable },
@@ -30,6 +30,7 @@ export default class CourseAdmin extends Vue {
 	};
 	courses: Array<courseContainer> = [];
 	changes: changes = {
+		changeID: 0,
 		create: [],
 		update: [],
 		remove: [],
@@ -46,6 +47,7 @@ export default class CourseAdmin extends Vue {
 	}
 	async mounted() {
 		await getAllCourses().then(response => (this.courses = response));
+		this.changes.changeID = highestID(this.courses);
 	}
 }
 </script>

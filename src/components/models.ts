@@ -27,6 +27,7 @@ export interface dbCourse {
 }
 
 export interface changes {
+	changeID: number;
 	create: Array<{ id: number; dbCourse: dbCourse }>;
 	update: Array<{ id: number; dbCourse: dbCourse }>;
 	remove: Array<{ id: number; dbCourse: dbCourse }>;
