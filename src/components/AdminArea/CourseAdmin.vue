@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<CourseTable v-for="(course, id) in courses" :key="id" :course="course" />
+		<CourseTable v-for="(course, id) in courses" :key="id" :course="course" :changes="changes" />
 		<div class="newCourse">
 			<label for="">LSF: <input type="text" v-model="newCourse.lsf"/></label>
 			<label for="">Titel: <input type="text" v-model="newCourse.titel"/></label>
@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import CourseTable from "@/components/AdminArea/CourseTable.vue";
-import { courseContainer } from "@/components/models.ts";
+import { changes, courseContainer } from "@/components/models.ts";
 import { saveCourses, getAllCourses } from "@/assets/ts/courses.ts";
 
 @Component({
@@ -29,7 +29,7 @@ export default class CourseAdmin extends Vue {
 		titel: "",
 	};
 	courses: Array<courseContainer> = [];
-	changes = {
+	changes: changes = {
 		create: [],
 		update: [],
 		remove: [],
