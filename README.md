@@ -36,9 +36,12 @@ This project is created with:
 ### Planned
 
 - Generation of links and QR codes
+- Optional end links
 - Export of raw data
 - Automatic backups
 - Export of reports
+- Room planner
+- Live feedback
 
 ## Status
 
