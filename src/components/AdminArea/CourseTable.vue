@@ -65,6 +65,7 @@
 			</tbody>
 		</table>
 		<input readonly name="copyURL" v-model="url" />
+		<QRModal :url="url" />
 	</div>
 </template>
 
@@ -72,8 +73,11 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { changes, courseContainer } from "@/components/models.ts";
 import { initdbCourse, handleChange } from "@/assets/ts/courses.ts";
+import QRModal from "@/components/AdminArea/QRModal.vue";
 
-@Component
+@Component({
+	components: { QRModal },
+})
 export default class CourseTable extends Vue {
 	@Prop() course!: courseContainer;
 	@Prop() changes!: changes;
