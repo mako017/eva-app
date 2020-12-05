@@ -1,29 +1,49 @@
-# evabox
+# EvaApp
 
-## Project setup
+## Table of contents
 
-```
-npm install
-```
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Status](#status)
+- [Contact](#contact)
 
-### Compiles and hot-reloads for development
+## General info
 
-```
-npm run serve
-```
+Evaluations are one of the most important scientific methods in order to assess and consequently improve the quality of products, interventions, and studies. One very prominent type of evaluation is the evaluation of university classes. Oftentime, students are asked to fill out a questionnaire at the end of a term and to evaluate the course and the lecturere. However, in certain cases, such as human medicine, classes are randomly taught by a single lecturer. Oftentimes, each session is taught by an expert and thus evaluations at the end of the whole term lack information.
 
-### Compiles and minifies for production
+To solve this problem, the Saarland University Medical Center used the Evabox, a device resembling the feedback stations at airports where you can signal your happiness with a single button press. With this device -and in combination with traditional questionnaires at the end of a term- it became possible to receive detailed feedback for each lecturer. However, with the need for digital courses due to the Covid pandemic, the Evabox couldn't be used any longer. It was thus decided, to develop a digital solution.
 
-```
-npm run build
-```
+This software combines the evaluation interface as well as a backend that facilitates the administration and reporting of evaluations.
 
-### Lints and fixes files
+## Technologies
 
-```
-npm run lint
-```
+This project is created with:
 
-### Customize configuration
+- Vue.js
+- Axios
+- PHP
+- MySQL
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Features
+
+### Implemented
+
+- Evaluation interface
+- Fraud prevention (i.e. blocking of repeated evaluations from the same device)
+- Basic CMS for the administration of evaluations
+
+### Planned
+
+- Generation of links and QR codes
+- Export of raw data
+- Automatic backups
+- Export of reports
+
+## Status
+
+The project is under development and hasn't been tested yet. First evaluations are planned for the winter term 2020/21.
+
+## Contact
+
+Created by [Marco Koch](mailto:marco.koch@uni-saarland.de?subject=[GitHub]%20EvaApp)
