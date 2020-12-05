@@ -2,7 +2,19 @@
 	<div class="root">
 		<table>
 			<thead class="title">
-				<th>{{ course.lsf }}</th>
+				<th>
+					<div>
+						<span>{{ course.lsf }}</span>
+						<div>
+							<i class="material-icons">
+								qr_code_2
+							</i>
+							<i class="material-icons" @click="linkToClipboard">
+								link
+							</i>
+						</div>
+					</div>
+				</th>
 				<th>{{ course.titel }}</th>
 				<th>Datum</th>
 				<th>Raum</th>
@@ -52,6 +64,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<input readonly name="copyURL" v-model="url" />
 	</div>
 </template>
 
@@ -75,6 +88,9 @@ export default class CourseTable extends Vue {
 		now = new Date(now.getTime() - offset * 60 * 1000);
 		return now.toISOString().split("T")[0];
 	}
+	get url() {
+		return "https://qualis.uni-saarland.de/evabox/?l=" + this.course.lsf;
+	}
 	addSession() {
 		this.changes.changeID += 1;
 		const newSession = {
@@ -88,6 +104,18 @@ export default class CourseTable extends Vue {
 		};
 		this.course.singleCourses.push(newSession);
 		handleChange(this.changes, initdbCourse(this.course, newSession), "create");
+	}
+	linkToClipboard() {
+		const el = document.createElement("textarea");
+		el.value = this.url;
+		el.setAttribute("readonly", "");
+		el.style.position = "absolute";
+		el.style.left = "-9999px";
+		document.body.appendChild(el);
+		el.select();
+		el.setSelectionRange(0, 99999);
+		document.execCommand("copy");
+		document.body.removeChild(el);
 	}
 	updateSession(id: number) {
 		handleChange(this.changes, initdbCourse(this.course, this.course.singleCourses[id]), "update");
