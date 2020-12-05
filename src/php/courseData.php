@@ -23,7 +23,6 @@ function requestAllCourses($mysqli)
 			"sitzung" => "NaN",
 			"dozent" => "NaN",
 		];
-
 	} else {
 		while ($row = $result->fetch_assoc()) {
 			$courses[] = (object) [
@@ -82,25 +81,83 @@ function insertCourse($mysqli, $courses)
 	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`) 
 	VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 	foreach ($courses as $course) {
-		foreach ($course->singleCourses as $sess) {
-			$sql->bind_param(
-				"isssssss",
-				$course->lsf,
-				$course->titel,
-				$sess->datum,
-				$sess->raum,
-				$sess->von,
-				$sess->bis,
-				$sess->sitzung,
-				$sess->dozent
-				// $course->opt_link,
-			);
-			$sql->execute();
-			if ($sql->affected_rows > 0) {
-				$success[] = 1;
-			} else {
-				$success[] = 0;
-			}
+		$sql->bind_param(
+			"isssssss",
+			$course->lsf,
+			$course->titel,
+			$course->datum,
+			$course->raum,
+			$course->von,
+			$course->bis,
+			$course->sitzung,
+			$course->dozent
+			// $course->opt_link,
+		);
+		$sql->execute();
+		if ($sql->affected_rows > 0) {
+			$success[] = 1;
+		} else {
+			$success[] = 0;
+		}
+	}
+	$sql->close();
+	return $success;
+}
+
+/**
+ * Takes a mysqli connection and a payload and enters a new line into the database
+ * @param mysqli $mysqli A mysqli connection
+ * @param object $courses An array containing all courses that need to be appended
+ * @return array An array containing which course was entered correctly
+ */
+function removeCourse($mysqli, $courses)
+{
+	$success = [];
+	$sql = $mysqli->prepare("DELETE FROM `evabox_plan` WHERE `Counter` = ? AND lsf = ?");
+	foreach ($courses as $course) {
+		$sql->bind_param("ii", $course->Counter, $course->lsf);
+		$sql->execute();
+		if ($sql->affected_rows > 0) {
+			$success[] = 1;
+		} else {
+			$success[] = 0;
+		}
+	}
+	$sql->close();
+	return $success;
+}
+/**
+ * Takes a mysqli connection and a payload and enters a new line into the database
+ * @param mysqli $mysqli A mysqli connection
+ * @param object $courses An array containing all courses that need to be appended
+ * @return array An array containing which course was entered correctly
+ */
+function updateCourse($mysqli, $courses)
+{
+	$success = [];
+	$sql = $mysqli->prepare("UPDATE `evabox_plan` SET 
+	`titel`=?,`datum`=?,`raum`=?,`von`=?,
+	`bis`=?,`sitzung`=?,`dozent`=?
+	 WHERE `Counter`=? AND `lsf`=?");
+	foreach ($courses as $course) {
+		$sql->bind_param(
+			"sssssssii",
+			$course->titel,
+			$course->datum,
+			$course->raum,
+			$course->von,
+			$course->bis,
+			$course->sitzung,
+			$course->dozent,
+			// $course->opt_link,
+			$course->Counter,
+			$course->lsf
+		);
+		$sql->execute();
+		if ($sql->affected_rows > 0) {
+			$success[] = 1;
+		} else {
+			$success[] = 0;
 		}
 	}
 	$sql->close();

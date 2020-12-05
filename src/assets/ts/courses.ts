@@ -35,12 +35,17 @@ export function initdbCourse(courseContainer: courseContainer, session: singleCo
 	};
 }
 
-export function saveCourses(courses: Array<courseContainer>) {
+export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" | "remove") {
+	const call = {
+		create: "insertCourse",
+		remove: "removeCourse",
+		update: "updateCourse",
+	};
 	axios
 		.post(
 			"./php/handle.php",
 			JSON.stringify({
-				call: "insertCourse",
+				call: call[type],
 				payload: courses,
 			}),
 		)
@@ -114,7 +119,7 @@ export function highestID(courses: Array<courseContainer>) {
  * @param dbCourse The course information that is to be updated
  */
 function createChange(changes: changes, id: number, dbCourse: dbCourse): void {
-	changes.create.push({ id, dbCourse });
+	changes.create.push(dbCourse);
 }
 /**
  * This function makes sure that deletions are prepared for being sent to the server if the course was not created in this session.
@@ -123,8 +128,8 @@ function createChange(changes: changes, id: number, dbCourse: dbCourse): void {
  * @param dbCourse The course information that is to be updated
  */
 function removeChange(changes: changes, id: number, dbCourse: dbCourse): void {
-	const isCreated = changes.create.findIndex(sess => sess.id === id);
-	const isChanged = changes.update.findIndex(sess => sess.id === id);
+	const isCreated = changes.create.findIndex(sess => sess.Counter === id);
+	const isChanged = changes.update.findIndex(sess => sess.Counter === id);
 
 	if (isCreated !== -1) {
 		changes.create.splice(isCreated, 1);
@@ -133,7 +138,7 @@ function removeChange(changes: changes, id: number, dbCourse: dbCourse): void {
 	if (isChanged !== -1) {
 		changes.update.splice(isCreated, 1);
 	}
-	changes.remove.push({ id, dbCourse });
+	changes.remove.push(dbCourse);
 }
 /**
  * This function makes sure that deletions are prepared for being sent to the server if the course was not created in this session.
@@ -142,12 +147,12 @@ function removeChange(changes: changes, id: number, dbCourse: dbCourse): void {
  * @param dbCourse The course information that is to be updated
  */
 function updateChange(changes: changes, id: number, dbCourse: dbCourse): void {
-	const isCreated = changes.create.findIndex(sess => sess.id === id);
+	const isCreated = changes.create.findIndex(sess => sess.Counter === id);
 
 	if (isCreated !== -1) {
-		changes.create[isCreated].dbCourse = dbCourse;
+		changes.create[isCreated] = dbCourse;
 		return;
-	} else changes.update.push({ id, dbCourse });
+	} else changes.update.push(dbCourse);
 }
 /**
  * A wrapper function to handle CRD operations

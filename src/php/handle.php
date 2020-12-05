@@ -34,6 +34,14 @@ switch ($call) {
 		$updatedCourses = insertCourse($mysqli, $payload);
 		echo json_encode($updatedCourses);
 		break;
+	case "removeCourse":
+		$updatedCourses = removeCourse($mysqli, $payload);
+		echo json_encode($updatedCourses);
+		break;
+	case "updateCourse":
+		$updatedCourses = updateCourse($mysqli, $payload);
+		echo json_encode($updatedCourses);
+		break;
 	default:
 		# code...
 		break;
