@@ -1,9 +1,13 @@
 <template>
-	<div class="root">
+	<div class="root" @click.self="closeModal">
 		<div class="card">
-			<span class="close">×</span>
-			<qrcode-vue :value="url" :size="size" level="H"></qrcode-vue>
-			<label>URL<br /><input readonly v-bind="url"/></label>
+			<i class="material-icons close" @click.self="closeModal">close</i>
+			<qrcode-vue :value="url" :size="size" level="Q"></qrcode-vue>
+			<label for="url">URL</label>
+			<div class="copyURL">
+				<input type="text" name="url" readonly v-model="url" />
+				<button @click.prevent="copyURL" type="button" class="material-icons">link</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -16,10 +20,17 @@ import QrcodeVue from "qrcode.vue";
 	components: { QrcodeVue },
 })
 export default class QRmodal extends Vue {
-	@Prop()
-	url!: string;
+	@Prop() url!: string;
+	@Prop() showModal!: boolean;
 	private value = "asd";
 	private size = 300;
+	closeModal() {
+		this.$emit("closeModal");
+	}
+	copyURL() {
+		this.closeModal();
+		this.$emit("copyURL");
+	}
 }
 </script>
 
@@ -34,20 +45,29 @@ export default class QRmodal extends Vue {
 	background-color: rgba(255, 255, 255, 0.4);
 	display: flex;
 	justify-content: center;
-	.card {
-		background-color: white;
-		width: 40%;
-		height: 70%;
-		border: 1px solid black;
-		display: flex;
-		flex-direction: column;
-		* {
-			margin: 1rem 0;
-		}
-		.close {
-			text-align: end;
-			font-size: 2rem;
-		}
+}
+.card {
+	z-index: 1000;
+	background-color: white;
+	width: 30%;
+	height: fit-content;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	* {
+		margin: 1rem 0;
+	}
+}
+.close {
+	cursor: pointer;
+	align-self: flex-end;
+	margin: 0.5rem 0.5rem 0 0;
+}
+.copyURL {
+	display: flex;
+	justify-content: center;
+	input {
+		width: 70%;
 	}
 }
 </style>

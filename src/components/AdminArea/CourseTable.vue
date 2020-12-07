@@ -6,7 +6,7 @@
 					<div>
 						<span>{{ course.lsf }}</span>
 						<div>
-							<i class="material-icons">
+							<i class="material-icons" @click="toggleModal">
 								qr_code_2
 							</i>
 							<i class="material-icons" @click="linkToClipboard">
@@ -64,8 +64,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<input readonly name="copyURL" v-model="url" />
-		<QRModal :url="url" />
+		<QRModal v-if="showModal" v-on:closeModal="toggleModal" v-on:copyURL="linkToClipboard" :url="url" />
 	</div>
 </template>
 
@@ -82,6 +81,7 @@ export default class CourseTable extends Vue {
 	@Prop() course!: courseContainer;
 	@Prop() changes!: changes;
 	private expanded = true;
+	private showModal = false;
 	removeSession(pos: number) {
 		handleChange(this.changes, initdbCourse(this.course, this.course.singleCourses[pos]), "remove");
 		this.course.singleCourses.splice(pos, 1);
@@ -126,6 +126,9 @@ export default class CourseTable extends Vue {
 	}
 	expand() {
 		this.expanded = !this.expanded;
+	}
+	toggleModal() {
+		this.showModal = !this.showModal;
 	}
 }
 </script>
