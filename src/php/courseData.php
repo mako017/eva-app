@@ -51,6 +51,7 @@ function requestCourse($mysqli, $payload)
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$courseinfo[] = (object) [
+				"Counter" => $row["Counter"],
 				"doz" => $row["dozent"],
 				"titel" => $row["titel"],
 				"sitzung" => $row["sitzung"],
@@ -60,6 +61,7 @@ function requestCourse($mysqli, $payload)
 		}
 	} else {
 		$courseinfo[] = (object) [
+			"Counter" => 0,
 			"doz" => "NaN",
 			"titel" => "NaN",
 			"sitzung" => "NaN",

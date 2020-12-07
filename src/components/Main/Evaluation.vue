@@ -5,7 +5,7 @@
 		><br />
 		<span>Veranstaltung: {{ infos.titel }}</span
 		><br />
-		<span>Sitzung: {{ infos.session }}</span>
+		<span>Sitzung: {{ infos.sitzung }}</span>
 		<p>Bitte nutzen Sie die Knöpfe unten um anzugeben, wie zufrieden Sie mit dieser Sitzung waren.</p>
 		<Control v-on:sendData="sendData" />
 	</div>

@@ -25,8 +25,9 @@ export default class HelloWorld extends Vue {
 	private infos = {
 		doz: "Prof. Dr. Sarah Dozent",
 		titel: "Anatomie",
-		session: "Herz",
+		sitzung: "Herz",
 		lsf: 123456,
+		Counter: 0,
 		fp: "",
 	};
 	private finished = false;
@@ -40,6 +41,7 @@ export default class HelloWorld extends Vue {
 			JSON.stringify({
 				call: "transferData",
 				payload: {
+					session: this.infos.Counter,
 					lsf: this.infos.lsf,
 					wertung: val,
 					fp: this.infos.fp,
@@ -58,6 +60,7 @@ export default class HelloWorld extends Vue {
 			exists: false,
 			doz: "",
 			titel: "",
+			sitzung: "",
 			lsf: "",
 		};
 		const URLParams = this.handleURL();
