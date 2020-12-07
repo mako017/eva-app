@@ -11,6 +11,9 @@ $call = $postData->call;
 $payload = isset($postData->payload) ? $postData->payload : 0;
 
 switch ($call) {
+	case "login":
+		echo json_encode(signIn($mysqli, $payload));
+		break;
 	case "transferData":
 		$payload->datum = date("Y-m-d");
 		$payload->zeit = date("H:i:s:v");
