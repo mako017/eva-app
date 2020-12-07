@@ -32,10 +32,10 @@ This project is created with:
 - Evaluation interface
 - Fraud prevention (i.e. blocking of repeated evaluations from the same device)
 - Basic CMS for the administration of evaluations
+- Generation of links and QR codes
 
 ### Planned
 
-- Generation of links and QR codes
 - Optional end links
 - Export of raw data
 - Automatic backups
