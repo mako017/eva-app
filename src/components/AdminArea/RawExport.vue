@@ -1,5 +1,7 @@
 <template>
-	<div></div>
+	<div>
+		<button type="button">Export all results</button>
+	</div>
 </template>
 
 <script lang="ts">
