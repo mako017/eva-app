@@ -43,9 +43,9 @@ export default class CourseAdmin extends Vue {
 		});
 	}
 	_saveCourses() {
-		saveCourses(this.changes.create, "create");
-		saveCourses(this.changes.remove, "remove");
-		saveCourses(this.changes.update, "update");
+		if (this.changes.create.length > 0) saveCourses(this.changes.create, "create");
+		if (this.changes.update.length > 0) saveCourses(this.changes.remove, "remove");
+		if (this.changes.remove.length > 0) saveCourses(this.changes.update, "update");
 	}
 	async mounted() {
 		await getAllCourses().then(response => (this.courses = response));
