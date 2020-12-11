@@ -1,5 +1,5 @@
 import axios from "axios";
-import { singleCourse, courseContainer, dbCourse, changes } from "@/components/models.ts";
+import { singleCourse, courseContainer, dbCourse, changes, singleVote } from "@/components/models.ts";
 
 function initSingleCourse(course: dbCourse): singleCourse {
 	return {
@@ -73,6 +73,27 @@ async function requestCourses(): Promise<Array<dbCourse>> {
 			console.log(error);
 		});
 	return unsortedCourses;
+}
+
+export async function requestResult(lsf: number): Promise<Array<singleVote>> {
+	let result: Array<singleVote> = [];
+	await axios
+		.post(
+			"./php/handle.php",
+			JSON.stringify({
+				call: "requestSingleResult",
+				payload: {
+					lsf,
+				},
+			}),
+		)
+		.then(response => {
+			result = response.data;
+		})
+		.catch(error => {
+			console.log(error);
+		});
+	return result;
 }
 
 function sortCourses(courses: Array<dbCourse>) {

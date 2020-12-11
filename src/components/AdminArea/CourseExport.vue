@@ -29,7 +29,7 @@
 					<td>{{ session.sitzung }}</td>
 					<td>{{ session.dozent }}</td>
 					<td>
-						<i class="material-icons">
+						<i class="material-icons" @click="_requestResult(course.lsf)">
 							insert_chart_outlined
 						</i>
 					</td>
@@ -42,14 +42,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { courseContainer } from "@/components/models.ts";
+import { courseContainer, singleVote } from "@/components/models.ts";
+import { requestResult } from "@/assets/ts/courses.ts";
 
 @Component
 export default class CourseExport extends Vue {
 	@Prop() course!: courseContainer;
 	private expanded = true;
+	private results: Array<singleVote> = [];
 	expand() {
 		this.expanded = !this.expanded;
+	}
+	async _requestResult(lsf: number) {
+		await requestResult(lsf).then(response => (this.results = response));
 	}
 }
 </script>
