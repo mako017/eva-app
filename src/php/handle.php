@@ -4,6 +4,7 @@ require_once "config.php";
 require_once "saveData.php";
 require_once "verifyUser.php";
 require_once "courseData.php";
+require_once "results.php";
 
 $postData = json_decode(file_get_contents("php://input"));
 $validuser = true;
@@ -40,6 +41,10 @@ switch ($call) {
 	case "removeCourse":
 		$updatedCourses = removeCourse($mysqli, $payload);
 		echo json_encode($updatedCourses);
+		break;
+	case "requestSingleResult":
+		$results = requestSingleResult($mysqli, $payload);
+		echo json_encode($results);
 		break;
 	case "updateCourse":
 		$updatedCourses = updateCourse($mysqli, $payload);
