@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CourseExport from "@/components/AdminArea/CourseExport.vue";
-import RawExport from "@/components/AdminArea/RawExport.vue";
+import CourseExport from "@/components/AdminArea/DataExport/CourseExport.vue";
+import RawExport from "@/components/AdminArea/DataExport/RawExport.vue";
 import { getAllCourses } from "@/assets/ts/courses.ts";
 import { courseContainer } from "@/components/models.ts";
 

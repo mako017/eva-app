@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CourseTable from "@/components/AdminArea/CourseTable.vue";
+import CourseTable from "@/components/AdminArea/CourseAdmin/CourseTable.vue";
 import { changes, courseContainer } from "@/components/models.ts";
 import { saveCourses, getAllCourses, highestID } from "@/assets/ts/courses.ts";
 

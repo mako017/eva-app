@@ -72,7 +72,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { changes, courseContainer } from "@/components/models.ts";
 import { initdbCourse, handleChange } from "@/assets/ts/courses.ts";
-import QRModal from "@/components/AdminArea/QRModal.vue";
+import QRModal from "@/components/AdminArea/CourseAdmin/QRModal.vue";
 
 @Component({
 	components: { QRModal },
