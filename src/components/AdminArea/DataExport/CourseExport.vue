@@ -37,15 +37,21 @@
 				</tr>
 			</tbody>
 		</table>
+		<ResultSlide v-if="results.length !== 0" :results="results" />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import ResultSlide from "@/components/AdminArea/DataExport/ResultSlide.vue";
 import { courseContainer, singleVote } from "@/components/models.ts";
 import { requestResult } from "@/assets/ts/courses.ts";
 
-@Component
+@Component({
+	components: {
+		ResultSlide,
+	},
+})
 export default class CourseExport extends Vue {
 	@Prop() course!: courseContainer;
 	private expanded = true;
