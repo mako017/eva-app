@@ -62,6 +62,11 @@ export class EvaResult {
 		});
 		this.results.forEach(result => {
 			result.mean = (result.A + result.B * 2 + result.C * 3 + result.D * 4 + result.E * 5) / result.N;
+			result.mean = Math.round(result.mean * 100) / 100;
+			result.sd = Math.sqrt(
+				((1 - result.mean) ** 2 * result.A + (2 - result.mean) ** 2 * result.B + (3 - result.mean) ** 2 * result.C + (4 - result.mean) ** 2 * result.D + (5 - result.mean) ** 2 * result.E) / result.N,
+			);
+			result.sd = Math.round(result.sd * 100) / 100;
 		});
 	}
 	compute() {
