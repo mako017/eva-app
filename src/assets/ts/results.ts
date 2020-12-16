@@ -70,8 +70,6 @@ export class EvaResult {
 		});
 	}
 	compute() {
-		console.log(this.rawResults);
-
 		this.countVotes();
 		return this.results;
 	}
