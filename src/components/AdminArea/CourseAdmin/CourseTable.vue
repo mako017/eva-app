@@ -72,7 +72,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { changes, courseContainer } from "@/components/models.ts";
 import { initdbCourse, handleChange } from "@/assets/ts/courses.ts";
-import QRModal from "@/components/AdminArea/QRModal.vue";
+import QRModal from "@/components/AdminArea/CourseAdmin/QRModal.vue";
 
 @Component({
 	components: { QRModal },
@@ -97,12 +97,15 @@ export default class CourseTable extends Vue {
 	}
 	addSession() {
 		this.changes.changeID += 1;
+		const raum = this.course.singleCourses.length > 0 ? this.course.singleCourses[this.course.singleCourses.length - 1].raum : "";
+		const von = this.course.singleCourses.length > 0 ? this.course.singleCourses[this.course.singleCourses.length - 1].von : "00:00";
+		const bis = this.course.singleCourses.length > 0 ? this.course.singleCourses[this.course.singleCourses.length - 1].bis : "00:00";
 		const newSession = {
 			id: this.changes.changeID,
 			datum: this.today,
-			raum: "",
-			von: "00:00",
-			bis: "00:00",
+			raum,
+			von,
+			bis,
 			sitzung: "",
 			dozent: "",
 		};

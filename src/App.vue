@@ -17,7 +17,12 @@ import AdminArea from "./components/AdminArea.vue";
 	},
 })
 export default class App extends Vue {
-	private admin = true;
+	private admin = false;
+	mounted() {
+		const paramString = window.location.search;
+		const parameters = new URLSearchParams(paramString);
+		this.admin = parameters.get("admin") ? true : false;
+	}
 }
 </script>
 

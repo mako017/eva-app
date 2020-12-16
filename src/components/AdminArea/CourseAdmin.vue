@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CourseTable from "@/components/AdminArea/CourseTable.vue";
+import CourseTable from "@/components/AdminArea/CourseAdmin/CourseTable.vue";
 import { changes, courseContainer } from "@/components/models.ts";
 import { saveCourses, getAllCourses, highestID } from "@/assets/ts/courses.ts";
 
@@ -43,9 +43,9 @@ export default class CourseAdmin extends Vue {
 		});
 	}
 	_saveCourses() {
-		saveCourses(this.changes.create, "create");
-		saveCourses(this.changes.remove, "remove");
-		saveCourses(this.changes.update, "update");
+		if (this.changes.create.length > 0) saveCourses(this.changes.create, "create");
+		if (this.changes.update.length > 0) saveCourses(this.changes.remove, "remove");
+		if (this.changes.remove.length > 0) saveCourses(this.changes.update, "update");
 	}
 	async mounted() {
 		await getAllCourses().then(response => (this.courses = response));

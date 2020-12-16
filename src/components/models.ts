@@ -8,6 +8,12 @@ export interface singleCourse {
 	dozent: string;
 }
 
+export interface singleVote {
+	datum: string;
+	zeit: string;
+	wertung: number;
+}
+
 export interface courseContainer {
 	lsf: number;
 	titel: string;
