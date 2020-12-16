@@ -33,11 +33,11 @@ This project is created with:
 - Fraud prevention (i.e. blocking of repeated evaluations from the same device)
 - Basic CMS for the administration of evaluations
 - Generation of links and QR codes
+- Export of raw data and diagrams in admin area
 
 ### Planned
 
 - Optional end links
-- Export of raw data
 - Automatic backups
 - Export of reports
 - Room planner
