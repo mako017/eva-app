@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Chart from "chart.js";
 
 @Component
@@ -13,9 +13,13 @@ export default class Bars extends Vue {
 	@Prop({ default: [] }) readonly labels!: Array<string>;
 	@Prop({ default: [] }) readonly colors!: Array<string>;
 	@Prop({ default: [] }) readonly data!: Array<number>;
+	chartObj: Chart | undefined = undefined;
 	readonly options: object = {
 		responsive: true,
 		maintainAspectRatio: true,
+		legend: {
+			display: false,
+		},
 		scales: {
 			yAxes: [
 				{
@@ -28,15 +32,13 @@ export default class Bars extends Vue {
 	};
 
 	mounted() {
-		this.createChart({
-			datasets: [
-				{
-					data: this.data,
-					backgroundColor: this.colors,
-				},
-			],
-			labels: this.labels,
-		});
+		this.initChart();
+	}
+
+	@Watch("data")
+	onPropertyChange() {
+		this.chartObj?.destroy();
+		this.initChart();
 	}
 
 	createChart(chartData: object) {
@@ -46,7 +48,18 @@ export default class Bars extends Vue {
 			data: chartData,
 			options: this.options,
 		};
-		new Chart(canvas, options);
+		this.chartObj = new Chart(canvas, options);
+	}
+	initChart() {
+		this.createChart({
+			datasets: [
+				{
+					data: this.data,
+					backgroundColor: this.colors,
+				},
+			],
+			labels: this.labels,
+		});
 	}
 }
 </script>

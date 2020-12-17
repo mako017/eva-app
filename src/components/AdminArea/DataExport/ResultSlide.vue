@@ -3,18 +3,18 @@
 		<div class="data">
 			<span>Titel: </span>
 			<span>Doz: </span>
-			<span>N = {{ evaResult[1].N }}</span>
-			<span>M = {{ evaResult[1].mean }}</span>
-			<span>SD = {{ evaResult[1].sd }}</span>
+			<span>N = {{ result.N }}</span>
+			<span>M = {{ result.mean }}</span>
+			<span>SD = {{ result.sd }}</span>
 		</div>
-		<Bars :data="[evaResult[1].A, evaResult[1].B, evaResult[1].C, evaResult[1].D, evaResult[1].E]" :labels="['++', '+', 'o', '-', '--']" :colors="['black', 'black', 'black', 'black', 'black']" />
+		<Bars :data="[result.A, result.B, result.C, result.D, result.E]" :labels="['++', '+', 'o', '-', '--']" :colors="['black', 'black', 'black', 'black', 'black']" />
 	</div>
 </template>
 
 <script lang="ts">
 import Bars from "@/components/AdminArea/DataExport/Bars.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { EvaResult, RawResults, SingleResult } from "@/assets/ts/results.ts";
+import { RawResults } from "@/assets/ts/results.ts";
 
 @Component({
 	components: {
@@ -22,11 +22,7 @@ import { EvaResult, RawResults, SingleResult } from "@/assets/ts/results.ts";
 	},
 })
 export default class ResultSlide extends Vue {
-	@Prop() results!: Array<RawResults>;
-	private evaResult: Array<SingleResult> = [];
-	mounted() {
-		this.evaResult = new EvaResult(this.results).compute();
-	}
+	@Prop() result!: RawResults;
 }
 </script>
 

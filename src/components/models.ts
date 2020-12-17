@@ -12,6 +12,7 @@ export interface singleVote {
 	datum: string;
 	zeit: string;
 	wertung: number;
+	session: number;
 }
 
 export interface courseContainer {

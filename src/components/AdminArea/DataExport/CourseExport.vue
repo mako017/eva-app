@@ -29,7 +29,7 @@
 					<td>{{ session.sitzung }}</td>
 					<td>{{ session.dozent }}</td>
 					<td>
-						<i class="material-icons" @click="_requestResult(course.lsf)">
+						<i class="material-icons" @click="_requestResult(course.lsf, session.id)">
 							insert_chart_outlined
 						</i>
 					</td>
@@ -37,7 +37,10 @@
 				</tr>
 			</tbody>
 		</table>
-		<ResultSlide v-if="results.length !== 0" :results="results" />
+		<div v-if="results.length !== 0">
+			<p v-if="showID === -1">No data available</p>
+			<ResultSlide v-else :result="evaResult[showID]" />
+		</div>
 	</div>
 </template>
 
@@ -46,6 +49,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import ResultSlide from "@/components/AdminArea/DataExport/ResultSlide.vue";
 import { courseContainer, singleVote } from "@/components/models.ts";
 import { requestResult } from "@/assets/ts/courses.ts";
+import { EvaResult, SingleResult } from "@/assets/ts/results.ts";
 
 @Component({
 	components: {
@@ -54,13 +58,18 @@ import { requestResult } from "@/assets/ts/courses.ts";
 })
 export default class CourseExport extends Vue {
 	@Prop() course!: courseContainer;
+	private evaResult: Array<SingleResult> = [];
 	private expanded = true;
 	private results: Array<singleVote> = [];
+	private showID = -1;
 	expand() {
 		this.expanded = !this.expanded;
 	}
-	async _requestResult(lsf: number) {
+	async _requestResult(lsf: number, session: number) {
+		console.log(session);
 		await requestResult(lsf).then(response => (this.results = response));
+		this.evaResult = new EvaResult(this.results).compute();
+		this.showID = this.evaResult.findIndex(result => result.session === session);
 	}
 }
 </script>
