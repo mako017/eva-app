@@ -1,8 +1,8 @@
 <template>
 	<div class="root">
 		<div class="data">
-			<span>Titel: </span>
-			<span>Doz: </span>
+			<span>Titel: {{ head.titel }}</span>
+			<span>Doz: {{ head.doz }}</span>
 			<span>N = {{ result.N }}</span>
 			<span>M = {{ result.mean }}</span>
 			<span>SD = {{ result.sd }}</span>
@@ -23,6 +23,7 @@ import { RawResults } from "@/assets/ts/results.ts";
 })
 export default class ResultSlide extends Vue {
 	@Prop() result!: RawResults;
+	@Prop() head!: Record<string, string>;
 }
 </script>
 
