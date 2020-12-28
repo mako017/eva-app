@@ -10,8 +10,22 @@ function requestAllCourses($mysqli)
 	$courses = [];
 	$sql = $mysqli->prepare("SELECT * FROM `evabox_plan`");
 	$sql->execute();
-	$result = $sql->get_result();
-	if ($result->num_rows <= 0) {
+	$sql->store_result();
+	$sql->bind_result($counter, $lsf, $titel, $datum, $raum, $von, $bis, $sitzung, $dozent, $opt);
+	while ($sql->fetch()) {
+		$courses[] = (object) [
+			"Counter" => $counter,
+			"lsf" => $lsf,
+			"titel" => $titel,
+			"datum" => $datum,
+			"raum" => $raum,
+			"von" => $von,
+			"bis" => $bis,
+			"sitzung" => $sitzung,
+			"dozent" => $dozent,
+		];
+	}
+	if (count($courses) == 0) {
 		$courses[] = (object) [
 			"Counter" => "NaN",
 			"lsf" => "NaN",
@@ -23,43 +37,33 @@ function requestAllCourses($mysqli)
 			"sitzung" => "NaN",
 			"dozent" => "NaN",
 		];
-	} else {
-		while ($row = $result->fetch_assoc()) {
-			$courses[] = (object) [
-				"Counter" => $row["Counter"],
-				"lsf" => $row["lsf"],
-				"titel" => $row["titel"],
-				"datum" => $row["datum"],
-				"raum" => $row["raum"],
-				"von" => $row["von"],
-				"bis" => $row["bis"],
-				"sitzung" => $row["sitzung"],
-				"dozent" => $row["dozent"],
-			];
-		}
 	}
 	return $courses;
 }
-
+/**
+ * This function is called to get a single course from the database
+ * @param mysqli $mysqli A mysqli connection
+ * @return array An array containing all courses
+ */
 function requestCourse($mysqli, $payload)
 {
 	$courseinfo = [];
-	$sql = $mysqli->prepare("SELECT * FROM `evabox_plan` WHERE `lsf` = ? AND `datum` = ?");
+	$sql = $mysqli->prepare("SELECT `Counter`, `dozent`, `titel`, `sitzung`, `von`, `bis` FROM `evabox_plan` WHERE `lsf` = ? AND `datum` = ?");
 	$sql->bind_param("is", $payload->lsf, $payload->datum);
 	$sql->execute();
-	$result = $sql->get_result();
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$courseinfo[] = (object) [
-				"Counter" => $row["Counter"],
-				"doz" => $row["dozent"],
-				"titel" => $row["titel"],
-				"sitzung" => $row["sitzung"],
-				"von" => $row["von"],
-				"bis" => $row["bis"],
-			];
-		}
-	} else {
+	$sql->store_result();
+	$sql->bind_result($counter, $doz, $titel, $sitzung, $von, $bis);
+	while ($sql->fetch()) {
+		$courseinfo[] = (object) [
+			"Counter" => $counter,
+			"doz" => $doz,
+			"titel" => $titel,
+			"sitzung" => $sitzung,
+			"von" => $von,
+			"bis" => $bis,
+		];
+	}
+	if (count($courseinfo) == 0) {
 		$courseinfo[] = (object) [
 			"Counter" => 0,
 			"doz" => "NaN",
