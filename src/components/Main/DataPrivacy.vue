@@ -4,7 +4,7 @@
 			<h4 class="title">Datenschutz</h4>
 			<span class="close" @click.once="closeNotice">×</span>
 		</div>
-		<span class="note">Mit Ihrer Teilnahme an der Evaluation stimmen Sie unseren <a href="">Datenschutzbedingungen</a> zu.</span>
+		<span class="note">Mit Ihrer Teilnahme an der Evaluation stimmen Sie unseren <a href="https://www.uni-saarland.de/datenschutzerklaerung.html" target="_blank">Datenschutzbedingungen</a> zu.</span>
 	</div>
 </template>
 
