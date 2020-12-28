@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="root">
 		<table>
 			<thead class="title">
 				<th>{{ course.lsf }}</th>
@@ -81,6 +81,9 @@ export default class CourseExport extends Vue {
 </script>
 
 <style scoped lang="scss">
+.root {
+	margin-top: 1rem;
+}
 table {
 	width: 100%;
 	text-align: left;
