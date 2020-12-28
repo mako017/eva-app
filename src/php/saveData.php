@@ -2,7 +2,7 @@
 
 function writeData($mysqli, $data)
 {
-	$sql = $mysqli->prepare("INSERT INTO `Evabox_Daten` (`lsf`, `sessionCounter`, `datum`, `zeit`, `wertung`) VALUES (?, ?, ?, ?, ?)");
+	$sql = $mysqli->prepare("INSERT INTO `evabox_daten` (`lsf`, `sessionCounter`, `datum`, `zeit`, `wertung`) VALUES (?, ?, ?, ?, ?)");
 	$sql->bind_param("iissi", $data->lsf, $data->session, $data->datum, $data->zeit, $data->wertung);
 	$sql->execute();
 	if ($sql->affected_rows > 0) {
