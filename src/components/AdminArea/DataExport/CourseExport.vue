@@ -7,11 +7,7 @@
 				<th>Datum</th>
 				<th>Sitzung</th>
 				<th>Dozent</th>
-				<th>
-					<i class="material-icons">
-						insert_chart_outlined
-					</i>
-				</th>
+				<th></th>
 				<th>
 					<i v-if="expanded" @click="expand" class="material-icons">
 						expand_more
