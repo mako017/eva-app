@@ -88,9 +88,10 @@ export default class HelloWorld extends Vue {
 		const paramString = window.location.search;
 		const parameters = new URLSearchParams(paramString);
 		const URLParams = {
-			lsf: parameters.get("l") ? parameters.get("l") : "NaN",
-			loc: parameters.get("r") ? parameters.get("r") : "NaN",
+			lsf: parameters.get("l") ? parameters.get("l")! : "NaN",
+			loc: parameters.get("r") ? parameters.get("r")! : "NaN",
 		};
+		this.infos.lsf = +URLParams.lsf;
 		return URLParams;
 	}
 	mounted() {
