@@ -11,7 +11,7 @@ function requestAllCourses($mysqli)
 	$sql = $mysqli->prepare("SELECT * FROM `evabox_plan`");
 	$sql->execute();
 	$sql->store_result();
-	$sql->bind_result($counter, $lsf, $titel, $datum, $raum, $von, $bis, $sitzung, $dozent, $opt);
+	$sql->bind_result($counter, $lsf, $titel, $datum, $raum, $von, $bis, $sitzung, $dozent, $liveFB, $optLink);
 	while ($sql->fetch()) {
 		$courses[] = (object) [
 			"Counter" => $counter,
@@ -23,6 +23,8 @@ function requestAllCourses($mysqli)
 			"bis" => $bis,
 			"sitzung" => $sitzung,
 			"dozent" => $dozent,
+			"liveFB" => $liveFB === 1 ? true : false,
+			"optLink" => $optLink,
 		];
 	}
 	if (count($courses) == 0) {
@@ -36,6 +38,8 @@ function requestAllCourses($mysqli)
 			"bis" => "NaN",
 			"sitzung" => "NaN",
 			"dozent" => "NaN",
+			"liveFB" => "NaN",
+			"optLink" => "NaN",
 		];
 	}
 	return $courses;
@@ -84,21 +88,10 @@ function requestCourse($mysqli, $payload)
 function insertCourse($mysqli, $courses)
 {
 	$success = [];
-	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+	$sql = $mysqli->prepare("INSERT INTO `evabox_plan` (`lsf`, `titel`, `datum`, `raum`, `von`, `bis`, `sitzung`, `dozent`, `liveFB`, `optLink`) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	foreach ($courses as $course) {
-		$sql->bind_param(
-			"isssssss",
-			$course->lsf,
-			$course->titel,
-			$course->datum,
-			$course->raum,
-			$course->von,
-			$course->bis,
-			$course->sitzung,
-			$course->dozent
-			// $course->opt_link,
-		);
+		$sql->bind_param("isssssssss", $course->lsf, $course->titel, $course->datum, $course->raum, $course->von, $course->bis, $course->sitzung, $course->dozent, $course->liveFB, $course->optLink);
 		$sql->execute();
 		if ($sql->affected_rows > 0) {
 			$success[] = 1;
@@ -142,12 +135,12 @@ function updateCourse($mysqli, $courses)
 {
 	$success = [];
 	$sql = $mysqli->prepare("UPDATE `evabox_plan` SET 
-	`titel`=?,`datum`=?,`raum`=?,`von`=?,
-	`bis`=?,`sitzung`=?,`dozent`=?
+	`titel`=?,`datum`=?,`raum`=?,`von`=?,`bis`=?,
+	`sitzung`=?,`dozent`=?,`liveFB`=?,`optLink`=?
 	 WHERE `Counter`=? AND `lsf`=?");
 	foreach ($courses as $course) {
 		$sql->bind_param(
-			"sssssssii",
+			"sssssssssii",
 			$course->titel,
 			$course->datum,
 			$course->raum,
@@ -155,7 +148,8 @@ function updateCourse($mysqli, $courses)
 			$course->bis,
 			$course->sitzung,
 			$course->dozent,
-			// $course->opt_link,
+			$course->liveFB,
+			$course->optLink,
 			$course->Counter,
 			$course->lsf
 		);
