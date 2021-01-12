@@ -34,10 +34,10 @@ This project is created with:
 - Basic CMS for the administration of evaluations
 - Generation of links and QR codes
 - Export of raw data and diagrams in admin area
+- Optional end links
 
 ### Planned
 
-- Optional end links
 - Automatic backups
 - Export of reports
 - Room planner
