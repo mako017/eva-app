@@ -6,6 +6,8 @@ export interface singleCourse {
 	bis: string;
 	sitzung: string;
 	dozent: string;
+	liveFB: boolean;
+	optLink: string;
 }
 
 export interface singleVote {
@@ -31,6 +33,8 @@ export interface dbCourse {
 	raum: string;
 	von: string;
 	bis: string;
+	liveFB: boolean;
+	optLink: string;
 }
 
 export interface changes {

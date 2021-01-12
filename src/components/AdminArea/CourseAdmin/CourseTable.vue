@@ -22,6 +22,8 @@
 				<th>Bis</th>
 				<th>Sitzung</th>
 				<th>Dozent</th>
+				<th>Live Feedback</th>
+				<th>Optional Link</th>
 				<th>
 					<i v-if="expanded" @click="expand" class="material-icons">
 						expand_more
@@ -41,6 +43,8 @@
 					<td><input @change="updateSession(id)" type="time" v-model="session.bis" /></td>
 					<td><input @change="updateSession(id)" type="text" v-model="session.sitzung" /></td>
 					<td><input @change="updateSession(id)" type="text" v-model="session.dozent" /></td>
+					<td><input @change="updateSession(id)" type="checkbox" v-model="session.liveFB" /></td>
+					<td><input @change="updateSession(id)" type="url" v-model="session.optLink" /></td>
 					<td>
 						<i class="material-icons" @click="removeSession(id)">
 							remove_circle_outline
@@ -48,6 +52,8 @@
 					</td>
 				</tr>
 				<tr>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -108,6 +114,8 @@ export default class CourseTable extends Vue {
 			bis,
 			sitzung: "",
 			dozent: "",
+			liveFB: false,
+			optLink: "",
 		};
 		this.course.singleCourses.push(newSession);
 		handleChange(this.changes, initdbCourse(this.course, newSession), "create");

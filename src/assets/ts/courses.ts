@@ -10,6 +10,8 @@ function initSingleCourse(course: dbCourse): singleCourse {
 		bis: course.bis,
 		sitzung: course.sitzung,
 		dozent: course.dozent,
+		optLink: course.optLink,
+		liveFB: course.liveFB,
 	};
 }
 
@@ -21,7 +23,7 @@ function initCourseContainer(course: dbCourse): courseContainer {
 	};
 }
 
-export function initdbCourse(courseContainer: courseContainer, session: singleCourse) {
+export function initdbCourse(courseContainer: courseContainer, session: singleCourse): dbCourse {
 	return {
 		Counter: session.id,
 		lsf: courseContainer.lsf,
@@ -32,6 +34,8 @@ export function initdbCourse(courseContainer: courseContainer, session: singleCo
 		raum: session.raum,
 		von: session.von,
 		bis: session.bis,
+		optLink: session.optLink,
+		liveFB: session.liveFB,
 	};
 }
 
