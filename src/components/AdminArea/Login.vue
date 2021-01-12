@@ -5,7 +5,7 @@
 			<label>User</label>
 			<input type="text" v-model="credentials.user" />
 			<label>Password</label>
-			<input type="password" v-model="credentials.password" />
+			<input type="password" @keypress.enter="signIn" v-model="credentials.password" />
 			<button type="button" @click.prevent.once="signIn">Sign In</button>
 		</form>
 	</div>
