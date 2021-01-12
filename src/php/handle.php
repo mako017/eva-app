@@ -7,13 +7,22 @@ require_once "courseData.php";
 require_once "results.php";
 
 $postData = json_decode(file_get_contents("php://input"));
+session_start();
 $validuser = true;
 $call = $postData->call;
 $payload = isset($postData->payload) ? $postData->payload : 0;
+$userToken = isset($postData->token) ? $postData->token : 0;
 
 switch ($call) {
 	case "login":
 		echo json_encode(signIn($mysqli, $payload));
+		break;
+	case "testToken":
+		if ($userToken === $_SESSION["token"]) {
+			echo "valid token";
+		} else {
+			echo "invalid token";
+		}
 		break;
 	case "transferData":
 		$payload->datum = date("Y-m-d");
