@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div v-bind:class="{ eva: !admin }" id="app">
 		<AdminArea v-if="admin" />
 		<Main v-else />
 	</div>
@@ -34,11 +34,12 @@ export default class App extends Vue {
 	text-align: center;
 	color: #2c3e50;
 	padding-top: 0.4rem;
+	width: 95vw;
+	margin: 0 auto;
 }
 @media only screen and (min-width: 600px) {
-	#app {
+	.eva {
 		width: 50vw;
-		margin: 0 auto;
 	}
 }
 </style>
