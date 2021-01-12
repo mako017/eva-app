@@ -20,6 +20,7 @@ import { Component, Vue } from "vue-property-decorator";
 import CourseAdmin from "@/components/AdminArea/CourseAdmin.vue";
 import DataExport from "@/components/AdminArea/DataExport.vue";
 import AdminLogin from "@/components/AdminArea/Login.vue";
+import axios from "axios";
 
 @Component({
 	components: {
@@ -51,6 +52,22 @@ export default class AdminArea extends Vue {
 		const ls = localStorage.getItem("user");
 		if (ls !== null) {
 			this.user = JSON.parse(ls);
+			axios
+				.post(
+					"./php/handle.php",
+					JSON.stringify({
+						call: "testToken",
+						token: this.user.token,
+					}),
+				)
+				.then(response => {
+					if (response.data !== "valid token") {
+						this.logout();
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
 	}
 }
