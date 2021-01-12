@@ -65,6 +65,9 @@ export default class HelloWorld extends Vue {
 			lsf: "",
 		};
 		const URLParams = this.handleURL();
+		if (URLParams.lsf === "NaN" && URLParams.loc === "NaN") {
+			return;
+		}
 		axios
 			.post(
 				"./php/handle.php",
