@@ -31,15 +31,19 @@ export default class AdminLogin extends Vue {
 				}),
 			)
 			.then(response => {
-				this.$emit("loggedIn", {
-					name: this.credentials.user,
-					token: response.data,
-					signedIn: true,
-				});
-				this.credentials = {
-					user: "",
-					password: "",
-				};
+				if (response.data !== "invalid") {
+					this.$emit("loggedIn", {
+						name: this.credentials.user,
+						token: response.data,
+						signedIn: true,
+					});
+					this.credentials = {
+						user: "",
+						password: "",
+					};
+				} else {
+					alert("Invalid user credentials");
+				}
 			})
 			.catch(error => {
 				console.log(error);
