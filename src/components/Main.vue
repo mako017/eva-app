@@ -1,7 +1,7 @@
 <template>
 	<div class="main">
 		<Evaluation :infos="infos" v-on:sendData="sendData" v-if="!finished" />
-		<Finish class="finish" v-else />
+		<Finish :optLink="infos.optLink" class="finish" v-else />
 		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>
 </template>
@@ -29,6 +29,7 @@ export default class HelloWorld extends Vue {
 		lsf: 123456,
 		Counter: 0,
 		fp: "",
+		optLink: "",
 	};
 	private finished = false;
 	private showNotice = true;
