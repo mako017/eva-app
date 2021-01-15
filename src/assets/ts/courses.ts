@@ -55,7 +55,20 @@ export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" 
 			}),
 		)
 		.then(response => {
-			console.log(response.data);
+			const responseData: Array<number> = response.data;
+			let counter = 0;
+			responseData.map(el => (el === 1 ? counter++ : 0));
+			switch (type) {
+				case "create":
+					alert("Created " + counter + " session(s).\n");
+					break;
+				case "update":
+					alert("Updated " + counter + " session(s).\n");
+					break;
+				case "remove":
+					alert("Removed " + counter + " session(s).\n");
+					break;
+			}
 		})
 		.catch(error => {
 			console.log(error);

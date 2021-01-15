@@ -35,6 +35,7 @@ This project is created with:
 - Generation of links and QR codes
 - Export of raw data and diagrams in admin area
 - Optional end links
+- Feedback when changing sessions
 
 ### Planned
 
@@ -46,7 +47,6 @@ This project is created with:
 ### Problems
 
 - Sessions can be deleted even if data exist
-- No Feedback on most buttons
 
 ## Status
 
