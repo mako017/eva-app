@@ -67,8 +67,7 @@ export default class CourseExport extends Vue {
 		this.expanded = !this.expanded;
 	}
 	async _requestResult(lsf: number, session: singleCourse) {
-		console.log(session);
-		await requestResult(lsf, this.userToken).then(response => (this.results = response));
+		await requestResult(lsf, session.id, this.userToken).then(response => (this.results = response));
 		this.evaResult = new EvaResult(this.results).compute();
 		this.showID = this.evaResult.findIndex(result => result.session === session.id);
 		this.showInfo.titel = session.sitzung;

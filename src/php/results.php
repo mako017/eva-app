@@ -3,8 +3,8 @@
 function requestSingleResult(mysqli $mysqli, $payload)
 {
 	$courseEva = [];
-	$sql = $mysqli->prepare("SELECT `sessionCounter`, `datum`, `zeit`, `wertung` FROM `evabox_daten` WHERE `lsf` = ?");
-	$sql->bind_param("i", $payload->lsf);
+	$sql = $mysqli->prepare("SELECT `sessionCounter`, `datum`, `zeit`, `wertung` FROM `evabox_daten` WHERE `lsf` = ? AND `sessionCounter` = ?");
+	$sql->bind_param("ii", $payload->lsf, $payload->session);
 	$sql->execute();
 	$sql->store_result();
 	$sql->bind_result($sess, $datum, $zeit, $wertung);

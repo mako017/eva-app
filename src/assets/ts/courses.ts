@@ -94,7 +94,7 @@ async function requestCourses(token: string): Promise<Array<dbCourse>> {
 	return unsortedCourses;
 }
 
-export async function requestResult(lsf: number, token: string): Promise<Array<singleVote>> {
+export async function requestResult(lsf: number, session: number, token: string): Promise<Array<singleVote>> {
 	let result: Array<singleVote> = [];
 	await axios
 		.post(
@@ -103,6 +103,7 @@ export async function requestResult(lsf: number, token: string): Promise<Array<s
 				call: "requestSingleResult",
 				payload: {
 					lsf,
+					session,
 				},
 				token,
 			}),
