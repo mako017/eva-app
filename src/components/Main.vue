@@ -1,7 +1,7 @@
 <template>
 	<div class="main">
 		<Evaluation :infos="infos" v-on:sendData="sendData" v-if="!finished" />
-		<Finish :optLink="infos.optLink" class="finish" v-else />
+		<Finish :lsf="infos.lsf" :optLink="infos.optLink" :liveFB="infos.liveFB" :session="{ lsf: infos.lsf, id: infos.Counter, dozent: infos.doz, sitzung: infos.sitzung }" class="finish" v-else />
 		<DataPrivacy v-if="showNotice" v-on:closeNotice="showNotice = false" />
 	</div>
 </template>
@@ -21,7 +21,7 @@ import axios from "axios";
 		DataPrivacy,
 	},
 })
-export default class HelloWorld extends Vue {
+export default class Main extends Vue {
 	private infos = {
 		doz: "Prof. Dr. Sarah Dozent",
 		titel: "Anatomie",
@@ -30,6 +30,7 @@ export default class HelloWorld extends Vue {
 		Counter: 0,
 		fp: "",
 		optLink: "",
+		liveFB: false,
 	};
 	private finished = false;
 	private showNotice = true;
