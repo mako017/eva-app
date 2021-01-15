@@ -75,8 +75,14 @@ switch ($call) {
 		break;
 }
 
-function comapreToken(string $token, bool $verbose = false)
+function comapreToken(string $token, bool $verbose = false, bool $debug = false)
 {
+	if ($debug) {
+		var_dump($token);
+		echo PHP_EOL;
+		var_dump($_SESSION["token"]);
+		echo PHP_EOL;
+	}
 	if ($token === $_SESSION["token"]) {
 		if ($verbose) {
 			echo "valid token";
