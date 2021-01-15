@@ -18,11 +18,7 @@ switch ($call) {
 		echo json_encode(signIn($mysqli, $payload));
 		break;
 	case "testToken":
-		if ($userToken === $_SESSION["token"]) {
-			echo "valid token";
-		} else {
-			echo "invalid token";
-		}
+		comapreToken($userToken, true);
 		break;
 	case "transferData":
 		$payload->datum = date("Y-m-d");
@@ -33,6 +29,9 @@ switch ($call) {
 		}
 		break;
 	case "requestAllCourses":
+		if (!comapreToken($userToken)) {
+			break;
+		}
 		echo json_encode(requestAllCourses($mysqli));
 		break;
 	case "requestCourse":
@@ -44,22 +43,49 @@ switch ($call) {
 		echo json_encode($courseInfo);
 		break;
 	case "insertCourse":
+		if (!comapreToken($userToken)) {
+			break;
+		}
 		$updatedCourses = insertCourse($mysqli, $payload);
 		echo json_encode($updatedCourses);
 		break;
 	case "removeCourse":
+		if (!comapreToken($userToken)) {
+			break;
+		}
 		$updatedCourses = removeCourse($mysqli, $payload);
 		echo json_encode($updatedCourses);
 		break;
 	case "requestSingleResult":
+		if (!comapreToken($userToken)) {
+			break;
+		}
 		$results = requestSingleResult($mysqli, $payload);
 		echo json_encode($results);
 		break;
 	case "updateCourse":
+		if (!comapreToken($userToken)) {
+			break;
+		}
 		$updatedCourses = updateCourse($mysqli, $payload);
 		echo json_encode($updatedCourses);
 		break;
 	default:
 		# code...
 		break;
+}
+
+function comapreToken(string $token, bool $verbose = false)
+{
+	if ($token === $_SESSION["token"]) {
+		if ($verbose) {
+			echo "valid token";
+		}
+		return true;
+	} else {
+		if ($verbose) {
+			echo "invalid token";
+		}
+		return false;
+	}
 }
