@@ -43,6 +43,11 @@ This project is created with:
 - Room planner
 - Live feedback
 
+### Problems
+
+- Sessions can be deleted even if data exist
+- No Feedback on most buttons
+
 ## Status
 
 The project is under development and hasn't been tested yet. First evaluations are planned for the winter term 2020/21.
