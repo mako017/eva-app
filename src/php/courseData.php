@@ -52,11 +52,11 @@ function requestAllCourses($mysqli)
 function requestCourse($mysqli, $payload)
 {
 	$courseinfo = [];
-	$sql = $mysqli->prepare("SELECT `Counter`, `dozent`, `titel`, `sitzung`, `von`, `bis`, `optLink` FROM `evabox_plan` WHERE `lsf` = ? AND `datum` = ?");
+	$sql = $mysqli->prepare("SELECT `Counter`, `dozent`, `titel`, `sitzung`, `von`, `bis`, `optLink`, `liveFB` FROM `evabox_plan` WHERE `lsf` = ? AND `datum` = ?");
 	$sql->bind_param("is", $payload->lsf, $payload->datum);
 	$sql->execute();
 	$sql->store_result();
-	$sql->bind_result($counter, $doz, $titel, $sitzung, $von, $bis, $optLink);
+	$sql->bind_result($counter, $doz, $titel, $sitzung, $von, $bis, $optLink, $liveFB);
 	while ($sql->fetch()) {
 		$courseinfo[] = (object) [
 			"Counter" => $counter,
@@ -66,6 +66,7 @@ function requestCourse($mysqli, $payload)
 			"von" => $von,
 			"bis" => $bis,
 			"optLink" => $optLink,
+			"liveFB" => $liveFB == 1 ? true : false,
 		];
 	}
 	if (count($courseinfo) == 0) {
@@ -77,6 +78,7 @@ function requestCourse($mysqli, $payload)
 			"von" => "NaN",
 			"bis" => "NaN",
 			"optLink" => "NaN",
+			"liveFB" => "NaN",
 		];
 	}
 	return $courseinfo;

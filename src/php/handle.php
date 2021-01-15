@@ -57,9 +57,9 @@ switch ($call) {
 		echo json_encode($updatedCourses);
 		break;
 	case "requestSingleResult":
-		if (!comapreToken($userToken)) {
-			break;
-		}
+		// if (!comapreToken($userToken)) {
+		// 	break;
+		// }
 		$results = requestSingleResult($mysqli, $payload);
 		echo json_encode($results);
 		break;
