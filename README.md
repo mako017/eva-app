@@ -36,17 +36,18 @@ This project is created with:
 - Export of raw data and diagrams in admin area
 - Optional end links
 - Feedback when changing sessions
+- Live feedback
 
 ### Planned
 
 - Automatic backups
 - Export of reports
 - Room planner
-- Live feedback
 
 ### Problems
 
 - Sessions can be deleted even if data exist
+- Needs better test to check if sending results is okay
 
 ## Status
 
