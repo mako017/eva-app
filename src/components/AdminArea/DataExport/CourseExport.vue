@@ -54,6 +54,7 @@ import { EvaResult, SingleResult } from "@/assets/ts/results.ts";
 })
 export default class CourseExport extends Vue {
 	@Prop() course!: courseContainer;
+	@Prop() userToken!: string;
 	private evaResult: Array<SingleResult> = [];
 	private expanded = true;
 	private results: Array<singleVote> = [];
@@ -67,7 +68,7 @@ export default class CourseExport extends Vue {
 	}
 	async _requestResult(lsf: number, session: singleCourse) {
 		console.log(session);
-		await requestResult(lsf).then(response => (this.results = response));
+		await requestResult(lsf, this.userToken).then(response => (this.results = response));
 		this.evaResult = new EvaResult(this.results).compute();
 		this.showID = this.evaResult.findIndex(result => result.session === session.id);
 		this.showInfo.titel = session.sitzung;

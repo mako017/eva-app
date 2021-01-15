@@ -8,8 +8,8 @@
 			</div>
 			<span>You are logged in as {{ user.name }} (<i @click="logout" class="logout">log out</i>)</span>
 			<hr />
-			<CourseAdmin v-if="navigation === 1" />
-			<DataExport v-else-if="navigation === 2" />
+			<CourseAdmin :user="user" v-if="navigation === 1" />
+			<DataExport :user="user" v-else-if="navigation === 2" />
 		</div>
 		<AdminLogin v-else v-on:loggedIn="setUser" />
 	</div>
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { user } from "@/components/models.ts";
 import CourseAdmin from "@/components/AdminArea/CourseAdmin.vue";
 import DataExport from "@/components/AdminArea/DataExport.vue";
 import AdminLogin from "@/components/AdminArea/Login.vue";
@@ -31,7 +32,7 @@ import axios from "axios";
 })
 export default class AdminArea extends Vue {
 	private navigation = 1;
-	private user = {
+	private user: user = {
 		signedIn: false,
 		name: "",
 		token: "",

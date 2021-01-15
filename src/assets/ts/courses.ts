@@ -39,7 +39,7 @@ export function initdbCourse(courseContainer: courseContainer, session: singleCo
 	};
 }
 
-export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" | "remove") {
+export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" | "remove", token: string) {
 	const call = {
 		create: "insertCourse",
 		remove: "removeCourse",
@@ -51,6 +51,7 @@ export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" 
 			JSON.stringify({
 				call: call[type],
 				payload: courses,
+				token,
 			}),
 		)
 		.then(response => {
@@ -61,13 +62,14 @@ export function saveCourses(courses: Array<dbCourse>, type: "create" | "update" 
 		});
 }
 
-async function requestCourses(): Promise<Array<dbCourse>> {
+async function requestCourses(token: string): Promise<Array<dbCourse>> {
 	let unsortedCourses: Array<dbCourse> = [];
 	await axios
 		.post(
 			"./php/handle.php",
 			JSON.stringify({
 				call: "requestAllCourses",
+				token,
 			}),
 		)
 		.then(response => {
@@ -79,7 +81,7 @@ async function requestCourses(): Promise<Array<dbCourse>> {
 	return unsortedCourses;
 }
 
-export async function requestResult(lsf: number): Promise<Array<singleVote>> {
+export async function requestResult(lsf: number, token: string): Promise<Array<singleVote>> {
 	let result: Array<singleVote> = [];
 	await axios
 		.post(
@@ -89,6 +91,7 @@ export async function requestResult(lsf: number): Promise<Array<singleVote>> {
 				payload: {
 					lsf,
 				},
+				token,
 			}),
 		)
 		.then(response => {
@@ -117,10 +120,10 @@ function sortCourses(courses: Array<dbCourse>) {
 /**
  * This wrapper function requests all courses from the database and converts them into courseContainer format
  */
-export async function getAllCourses(): Promise<Array<courseContainer>> {
+export async function getAllCourses(userToken: string): Promise<Array<courseContainer>> {
 	let allCourses: Array<courseContainer> = [];
 	let dbCourses: Array<dbCourse> = [];
-	await requestCourses().then(response => (dbCourses = response));
+	await requestCourses(userToken).then(response => (dbCourses = response));
 	allCourses = sortCourses(dbCourses);
 	return allCourses;
 }

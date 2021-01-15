@@ -15,15 +15,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import CourseTable from "@/components/AdminArea/CourseAdmin/CourseTable.vue";
-import { changes, courseContainer } from "@/components/models.ts";
+import { changes, user, courseContainer } from "@/components/models.ts";
 import { saveCourses, getAllCourses, highestID } from "@/assets/ts/courses.ts";
 
 @Component({
 	components: { CourseTable },
 })
 export default class CourseAdmin extends Vue {
+	@Prop()
+	private user!: user;
 	private newCourse = {
 		lsf: "",
 		titel: "",
@@ -51,13 +53,13 @@ export default class CourseAdmin extends Vue {
 		};
 	}
 	_saveCourses() {
-		if (this.changes.create.length > 0) saveCourses(this.changes.create, "create");
-		if (this.changes.remove.length > 0) saveCourses(this.changes.remove, "remove");
-		if (this.changes.update.length > 0) saveCourses(this.changes.update, "update");
+		if (this.changes.create.length > 0) saveCourses(this.changes.create, "create", this.user.token);
+		if (this.changes.remove.length > 0) saveCourses(this.changes.remove, "remove", this.user.token);
+		if (this.changes.update.length > 0) saveCourses(this.changes.update, "update", this.user.token);
 		this.resetChanges();
 	}
 	async mounted() {
-		await getAllCourses().then(response => (this.courses = response));
+		await getAllCourses(this.user.token).then(response => (this.courses = response));
 		this.changes.changeID = highestID(this.courses);
 	}
 }
