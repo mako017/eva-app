@@ -43,3 +43,9 @@ export interface changes {
 	update: Array<dbCourse>;
 	remove: Array<dbCourse>;
 }
+
+export interface user {
+	signedIn: boolean;
+	name: string;
+	token: string;
+}
