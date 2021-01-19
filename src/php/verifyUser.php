@@ -30,16 +30,17 @@ function writeFingerprint($mysqli, $payload)
 	$sql->close();
 }
 
-function signIn($mysqli, $payload)
+function signIn(mysqli $mysqli, $payload)
 {
 	$token = "invalid";
 	$sql = $mysqli->prepare("SELECT password FROM evabox_users WHERE name = ?");
 	$sql->bind_param("s", $payload->user);
 	$sql->execute();
-	$result = $sql->get_result();
-	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		if (password_verify($payload->password, $row["password"])) {
+	$sql->store_result();
+	$sql->bind_result($password);
+	$sql->fetch();
+	if ($password !== null) {
+		if (password_verify($payload->password, $password)) {
 			$token = base64_encode(random_bytes(128));
 			$token = strtr($token, "+/", "-_");
 			$_SESSION["token"] = $token;
