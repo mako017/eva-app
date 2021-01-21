@@ -5,6 +5,8 @@ $user = "user"; /* User */
 $password = "password"; /* Password */
 $dbname = "db"; /* Database name */
 
+date_default_timezone_set("Europe/Berlin");
+
 $mysqli = new mysqli($host, $user, $password, $dbname);
 if ($mysqli->connect_error) {
 	exit("Error connecting to database");

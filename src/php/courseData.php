@@ -178,7 +178,7 @@ function checkCourseTime($courseInfo, $time)
 {
 	$checkedArray = [];
 	foreach ($courseInfo as $course) {
-		if ($course->von < $time && addTime($course->bis, 15) > $time) {
+		if ($time > $course->von && $time < addTime($course->bis, 15)) {
 			$checkedArray[] = $course;
 		}
 	}
